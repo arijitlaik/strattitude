@@ -55,5 +55,26 @@
  	var Temp_Pl = Math.asin(Math.sin(torad(dip)) * Math.sin(torad(rake)));
  	//trend
  	var Temp_Tr = torad(strike) + Math.atan(Math.cos(torad(dip)) * Math.tan(torad(rake)));
+	getLocation();
  	return [todeg(Temp_Pl), todeg(Temp_Tr)];
+
+ }
+
+ function getLocation() {
+ 	if (navigator.geolocation) {
+ 		navigator.geolocation.watchPosition(showPosition);
+ 	} else {
+ 		console.log("Geolocation is not supported by this browser.");
+ 	}
+ }
+
+ function showPosition(position) {
+ 	document.getElementById("Planelat").parentNode.className += " is-focused";
+ 	document.getElementById("Planelon").parentNode.className += " is-focused";
+ 	document.getElementById("Planelat").value = position.coords.latitude;
+ 	document.getElementById("Planelon").value = position.coords.longitude;
+ 	document.getElementById("Linelat").parentNode.className += " is-focused"
+ 	document.getElementById("Linelon").parentNode.className += " is-focused"
+ 	document.getElementById("Linelat").value = position.coords.latitude;
+ 	document.getElementById("Linelon").value = position.coords.longitude;
  }
