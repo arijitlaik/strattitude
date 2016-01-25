@@ -15,6 +15,7 @@
  			var strike = eventData.alpha;
 
  			// call our orientation event handler
+			getLocation();
  			deviceOrientationHandler(strike, dip, rake);
  		}, false);
  	} else {
