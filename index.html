@@ -28,8 +28,8 @@
 	<meta name="msapplication-TileImage" content="icon.png">
 	<meta name="msapplication-TileColor" content="#FFFFFF">
 
-	<link rel="stylesheet" href="css/material.light_green-indigo.min.css">
-	<link href="css/material.icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/material.teal-amber.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="css/material.custom.css">
 
 	<script src="js/material.min.js"></script>
@@ -44,14 +44,13 @@
 		<header class="mdl-layout__header">
 			<div class="mdl-layout__header-row ">
 				<!-- Title -->
-				<span class="mdl-layout-title mdl-color--white"><b class="mdl-color-text--primary">STR<l class="mdl-color-text--accent">Attitude</l></b></span>
+				<span class="mdl-layout-title"><b>STR<l class="mdl-color-text--accent">Attitude</l></b></span>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
 				<!-- Navigation -->
-				<nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="">Link</a>
-					<a class="mdl-navigation__link" href="">Link</a>
-				</nav>
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--icon mdl-button--accent" >
+					<i class="material-icons">edit_location</i>
+				</button>
 			</div>
 
 			<!-- Tabs -->
@@ -102,18 +101,20 @@
 											<label class="mdl-textfield__label" for="PlaneLon">Lon</label>
 										</div>
 									</div>
+									<b>Location Accuracy:</b><span id="Accpl"></span>
 								</div>
 							</div>
 							<div class="mdl-card__actions mdl-typography--text-center ">
 
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
-									<i class="material-icons">save</i>
-								</button>
+
 							</div>
 						</div>
 
 					</div>
 				</div>
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect saverbutton">
+					<i class="material-icons">save</i>
+				</button>
 				<button class="mdl-button mdl-js-button mdl-button--fab  mdl-button--primary mdl-button--colored mdl-js-ripple-effect lockerbutton">
 					<i class="material-icons">lock_open</i>
 				</button>
@@ -155,17 +156,17 @@
 											<label class="mdl-textfield__label" for="Linelon">Long</label>
 										</div>
 									</div>
+									<b>Location Accuracy:</b><span id="Accln"></span>
 								</div>
 							</div>
 							<div class="mdl-card__actions mdl-typography--text-center ">
-
-								<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
-									<i class="material-icons">save</i>
-								</button>
 							</div>
 						</div>
 
 					</div>
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect saverbutton">
+						<i class="material-icons">save</i>
+					</button>
 					<button class="mdl-button mdl-js-button mdl-button--fab  mdl-button--primary mdl-button--colored mdl-js-ripple-effect lockerbutton">
 						<i class="material-icons">lock_open</i>
 					</button>

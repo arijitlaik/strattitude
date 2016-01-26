@@ -10,8 +10,6 @@
 	#dataout {
 		width: 100%;
 	}
-
-
 	.lockerbutton {
 		position: fixed;
 		display: block;
@@ -21,10 +19,18 @@
 		margin-bottom: 40px;
 		z-index: 900;
 	}
-#fixed-tab-3{
+	.saverbutton {
+		position: fixed;
+		display: block;
+		left: 0;
+		bottom: 0;
+		margin-left: 40px;
+		margin-bottom: 40px;
+		z-index: 900;
+	}
+	#fixed-tab-3 {
 		z-index: 9001;
-}
-
+	}
 	table {
 		width: 100%;
 	}
@@ -37,9 +43,6 @@
 		position: relative !important;
 		left: 0 !important;
 	}
-
-
-
 	@media screen and (max-width: 768px) {
 		table {
 			margin-bottom: 0;
@@ -58,7 +61,6 @@
 			height: auto !important
 		}
 		table > tbody > tr > td {
-
 			display: block;
 			vertical-align: middle;
 			text-align: right;
@@ -70,5 +72,4 @@
 			font-weight: 400;
 			color: #757575;
 		}
-
 	}
