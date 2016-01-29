@@ -10,21 +10,8 @@ function toggleLocks() {
 	}
 }
 
-function initUI() {
-	var lockerbuttons = document.getElementsByClassName("lockerbutton");
-	for (var i = 0; i < lockerbuttons.length; i++)
-		lockerbuttons[i].addEventListener("click", toggleLocks);
-	document.getElementById("editLatLon").addEventListener("click", toggleEditLoc);
-}
-initUI();
-
 function toggleEditLoc() {
-	if (
-		document.getElementById("Planelat").hasAttribute("disabled") &&
-		document.getElementById("Linelat").hasAttribute("disabled") &&
-		document.getElementById("Planelon").hasAttribute("disabled") &&
-		document.getElementById("Linelon").hasAttribute("disabled")
-	) {
+	if (document.querySelector("#editLatLon i").innerHTML === "edit_location") {
 		document.getElementById("Planelat").removeAttribute("disabled");
 		document.getElementById("Linelat").removeAttribute("disabled");
 		document.getElementById("Planelon").removeAttribute("disabled");
@@ -44,5 +31,3 @@ function toggleEditLoc() {
 	document.getElementById("Linelon").parentNode.classList.toggle("is-disabled");
 
 }
-
-//.parentNode.className +=" is-focused"//

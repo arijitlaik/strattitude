@@ -1,5 +1,86 @@
+var watchID;
 getLocation();
-getOrienation();
+
+function initUI() {
+	var lockerbuttons = document.getElementsByClassName("lockerbutton");
+	for (var i = 0; i < lockerbuttons.length; i++)
+		lockerbuttons[i].addEventListener("click", toggleLocks);
+	document.getElementById("editLatLon").addEventListener("click", toggleLocation);
+}
+
+initUI();
+
+//Location Functions
+
+function toggleLocation() {
+
+	if (document.querySelector("#editLatLon i").innerHTML === "my_location") {
+		getLocation();
+		console.log("getlocation");
+	}
+	if (document.querySelector("#editLatLon i").innerHTML === "edit_location") {
+		stopLocation();
+		console.log("stoplocation");
+		document.getElementById("Accpl").innerHTML = "Location not taken from device";
+		document.getElementById("Accln").innerHTML = "Location not taken from device";
+	}
+	toggleEditLoc();
+}
+
+
+function showLocError(error) {
+	switch (error.code) {
+		case error.PERMISSION_DENIED:
+			document.getElementById("Accpl").innerHTML = "User denied the request for Geolocation.";
+			document.getElementById("Accln").innerHTML = "User denied the request for Geolocation.";
+			break;
+		case error.POSITION_UNAVAILABLE:
+			document.getElementById("Accpl").innerHTML = "Location information is unavailable.";
+			document.getElementById("Accln").innerHTML = "Location information is unavailable.";
+			break;
+		case error.TIMEOUT:
+			document.getElementById("Accpl").innerHTML = "The request to get user location timed out.";
+			document.getElementById("Accln").innerHTML = "The request to get user location timed out.";
+			break;
+		case error.UNKNOWN_ERROR:
+			document.getElementById("Accpl").innerHTML = "An unknown error occurred.";
+			document.getElementById("Accln").innerHTML = "An unknown error occurred.";
+			break;
+	}
+}
+
+function showPosition(position) {
+
+	document.getElementById("Planelat").parentNode.classList.add("is-dirty");
+	document.getElementById("Planelon").parentNode.classList.add("is-dirty");
+	document.getElementById("Linelat").parentNode.classList.add("is-dirty");
+	document.getElementById("Linelon").parentNode.classList.add("is-dirty");
+
+	document.getElementById("Planelat").value = position.coords.latitude;
+	document.getElementById("Planelon").value = position.coords.longitude;
+	document.getElementById("Linelat").value = position.coords.latitude;
+	document.getElementById("Linelon").value = position.coords.longitude;
+	document.getElementById("Accpl").innerHTML = position.coords.accuracy;
+	document.getElementById("Accln").innerHTML = position.coords.accuracy;
+}
+
+function getLocation() {
+	if (navigator.geolocation) {
+		watchID = navigator.geolocation.watchPosition(showPosition, showLocError)
+	} else {
+		document.getElementById("Accpn").innerHTML = "Geolocation is not supported by this browser.";
+		document.getElementById("Accln").innerHTML = "Geolocation is not supported by this browser.";
+	}
+}
+
+function stopLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.clearWatch(watchID);
+	}
+}
+
+
+//Orienation Functions
 
 function getOrienation() {
 	if (window.DeviceOrientationEvent) {
@@ -44,51 +125,4 @@ function deviceOrientationHandler(strike, dip, plunge) {
 	document.getElementById("trend").value = strike;
 	document.getElementById("plunge").parentNode.classList.add("is-dirty");
 	document.getElementById("plunge").value = plunge;
-
-}
-
-function showError(error) {
-	switch (error.code) {
-		case error.PERMISSION_DENIED:
-			document.getElementById("Accpl").innerHTML = "User denied the request for Geolocation.";
-			document.getElementById("Accln").innerHTML = "User denied the request for Geolocation.";
-			break;
-		case error.POSITION_UNAVAILABLE:
-			document.getElementById("Accpl").innerHTML = "Location information is unavailable.";
-			document.getElementById("Accln").innerHTML = "Location information is unavailable.";
-			break;
-		case error.TIMEOUT:
-			document.getElementById("Accpl").innerHTML = "The request to get user location timed out.";
-			document.getElementById("Accln").innerHTML = "The request to get user location timed out.";
-			break;
-		case error.UNKNOWN_ERROR:
-			document.getElementById("Accpl").innerHTML = "An unknown error occurred.";
-			document.getElementById("Accln").innerHTML = "An unknown error occurred.";
-			break;
-	}
-}
-
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(showPosition)
-	} else {
-		document.getElementById("Accpn").innerHTML = "Geolocation is not supported by this browser.";
-		document.getElementById("Accln").innerHTML = "Geolocation is not supported by this browser.";
-	}
-}
-
-function showPosition(position) {
-	document.getElementById("Planelat").parentNode.classList.add("is-dirty");
-	document.getElementById("Planelon").parentNode.classList.add("is-dirty");
-	document.getElementById("Linelat").parentNode.classList.add("is-dirty");
-	document.getElementById("Linelon").parentNode.classList.add("is-dirty");
-
-
-	document.getElementById("Planelat").value = position.coords.latitude;
-	document.getElementById("Planelon").value = position.coords.longitude;
-	document.getElementById("Linelat").value = position.coords.latitude;
-	document.getElementById("Linelon").value = position.coords.longitude;
-
-	document.getElementById("Accpl").innerHTML = position.coords.accuracy;
-	document.getElementById("Accln").innerHTML = position.coords.accuracy;
 }
