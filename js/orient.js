@@ -14,7 +14,7 @@ function getOrienation() {
 
 			// alpha is the compass direction the device is facing in degrees
 			var strike = eventData.alpha;
-			console.log(eventData.absolute);
+			//console.log(eventData.absolute);
 			// call our orientation event handler
 
 			deviceOrientationHandler(strike, dip, plunge);
