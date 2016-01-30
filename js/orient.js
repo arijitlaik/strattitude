@@ -1,5 +1,12 @@
 var watchID;
-getLocation();
+
+function appInit() {
+	getLocation();
+	getOrienation();
+}
+
+appInit();
+//EventListner Bindings to the UI
 
 function initUI() {
 	var lockerbuttons = document.getElementsByClassName("lockerbutton");
@@ -65,8 +72,13 @@ function showPosition(position) {
 }
 
 function getLocation() {
+	var options = {
+		enableHighAccuracy: true, // Hint to try to use true GPS instead of other location proxies like WiFi or cell towers
+		timeout: 5000, // Maximum number of milliseconds to wait before timing out
+		maximumAge: 0 // Maximum of milliseconds since last position fix
+	};
 	if (navigator.geolocation) {
-		watchID = navigator.geolocation.watchPosition(showPosition, showLocError)
+		watchID = navigator.geolocation.watchPosition(showPosition, showLocError, options)
 	} else {
 		document.getElementById("Accpn").innerHTML = "Geolocation is not supported by this browser.";
 		document.getElementById("Accln").innerHTML = "Geolocation is not supported by this browser.";
@@ -88,17 +100,17 @@ function getOrienation() {
 		// Listen for the deviceorientation event and handle the raw data
 		window.addEventListener('deviceorientation', function (eventData) {
 			// gamma is the left-to-right tilt in degrees, where right is positive
-			var plunge = eventData.gamma;
+			var gamma = eventData.gamma;
 
 			// beta is the front-to-back tilt in degrees, where front is positive
-			var dip = eventData.beta;
+			var beta = eventData.beta;
 
 			// alpha is the compass direction the device is facing in degrees
-			var strike = eventData.alpha;
+			var alpha = eventData.alpha;
 			//console.log(eventData.absolute);
 			// call our orientation event handler
 
-			deviceOrientationHandler(strike, dip, plunge);
+			deviceOrientationHandler(alpha, beta, gamma);
 		}, false);
 	} else {
 		//document.getElementById("doEvent").innerHTML = "Not supported on your device or browser.  Sorry."
@@ -114,15 +126,18 @@ function todeg(radians) {
 	return radians * 180 / Math.PI;
 }
 
-function deviceOrientationHandler(strike, dip, plunge) {
-
+function deviceOrientationHandler(alpha, beta, gamma) {
+	var dip = Math.round(Math.sqrt (Math.pow(beta, 2) + Math.pow(gamma, 2))),
+		plunge = Math.round(dip),
+		strike = Math.round(alpha + 90),
+		trend = Math.round(alpha);
 	document.getElementById("strike").parentNode.classList.add("is-dirty");
 	document.getElementById("strike").value = strike;
 	document.getElementById("dip").parentNode.classList.add("is-dirty");
 	document.getElementById("dip").value = dip;
 
 	document.getElementById("trend").parentNode.classList.add("is-dirty");
-	document.getElementById("trend").value = strike;
+	document.getElementById("trend").value = trend;
 	document.getElementById("plunge").parentNode.classList.add("is-dirty");
 	document.getElementById("plunge").value = plunge;
 }
